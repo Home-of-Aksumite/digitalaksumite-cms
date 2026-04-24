@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "cross-env PORT=8000 PAYLOAD_CONFIG_PATH=src/payload.config.ts next dev --webpack",
+    "prebuild": "npm run generate:importmap",
     "build": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts next build --webpack",
     "start": "cross-env PORT=8000 PAYLOAD_CONFIG_PATH=src/payload.config.ts next start",
     "typecheck": "tsc --noEmit",
