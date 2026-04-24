@@ -5,8 +5,6 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import { s3Storage } from '@payloadcms/storage-s3';
 import { buildConfig } from 'payload';
 
-import { runSeed } from './seed/runSeed'
-
 import { collections } from './collections'
 import { globals } from './globals'
 
@@ -39,7 +37,8 @@ export default buildConfig({
     if (isProduction) return
 
     try {
-      await runSeed(payload)
+      const seedModule = await import('./seed/runSeed')
+      await seedModule.runSeed(payload)
     } catch (err) {
       payload.logger.error({ err }, 'Auto-seed failed')
     }
