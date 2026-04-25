@@ -79,6 +79,8 @@ export default buildConfig({
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
   cors: [
     'http://localhost:3000',
+    'https://digitalaksumite.com',
+    'https://www.digitalaksumite.com',
     process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:8000',
     'http://localhost:3001', // Next.js dev
   ],
