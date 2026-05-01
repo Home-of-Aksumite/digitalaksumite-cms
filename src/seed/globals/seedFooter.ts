@@ -5,7 +5,7 @@ export async function seedFooter(payload: Payload) {
     slug: 'footer',
     data: {
       description:
-        'Digital Aksumite crafts software systems with a hundred-year perspective. We engineer digital infrastructure that serves civilization.',
+        'Digital Aksumite designs customer acquisition systems that transform digital presence into measurable business inquiries. We combine websites, lead capture, and automation into one conversion-focused system.',
       copyrightText: '© 2026 Digital Aksumite. All rights reserved. Built to endure.',
     } as unknown as Record<string, unknown>,
   } as unknown as Parameters<typeof payload.updateGlobal>[0])

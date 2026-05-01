@@ -14,7 +14,8 @@ export async function seedSiteSettings(payload: Payload) {
       instagram: 'https://www.instagram.com/digitalaksumite/',
       github: 'https://github.com/digitalaksumite',
       facebook: 'https://facebook.com/digitalaksumite',
-      defaultSEODescription: 'Digital Aksumite - Engineering software systems with a hundred-year perspective.',
+      defaultSEODescription:
+        'Digital Aksumite designs customer acquisition systems that turn digital presence into measurable business inquiries. We combine websites, lead capture, and automation into one conversion-focused system.',
     } as unknown as Record<string, unknown>,
   } as unknown as Parameters<typeof payload.updateGlobal>[0])
 }
