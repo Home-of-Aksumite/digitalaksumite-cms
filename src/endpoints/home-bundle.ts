@@ -18,7 +18,7 @@ export const homeBundleEndpoint: { path: string; method: 'get'; handler: (req: P
             collection: 'services',
             where: { featured: { equals: true } },
             limit: 6,
-            sort: '-createdAt',
+            sort: 'order',
           }),
           payload.find({
             collection: 'projects',

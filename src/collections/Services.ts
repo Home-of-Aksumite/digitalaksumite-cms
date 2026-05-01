@@ -42,6 +42,14 @@ export const Services: CollectionConfig = {
       required: true,
     },
     {
+      name: 'order',
+      type: 'number',
+      defaultValue: 999,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       name: 'slug',
       type: 'text',
       unique: true,
