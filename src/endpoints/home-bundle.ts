@@ -7,6 +7,44 @@ export const homeBundleEndpoint: { path: string; method: 'get'; handler: (req: P
     try {
       const payload = req.payload;
 
+      const fetchBundleData = () =>
+        Promise.all([
+          payload.findGlobal({ slug: 'home-page' }),
+          payload.findGlobal({ slug: 'about-page' }),
+          payload.findGlobal({ slug: 'contact-page' }),
+          payload.findGlobal({ slug: 'site-settings' }),
+          payload.findGlobal({ slug: 'footer' }),
+          payload.find({
+            collection: 'services',
+            where: { featured: { equals: true } },
+            limit: 6,
+            sort: '-createdAt',
+          }),
+          payload.find({
+            collection: 'projects',
+            where: { featured: { equals: true } },
+            limit: 6,
+            sort: '-createdAt',
+          }),
+          payload.find({
+            collection: 'testimonials',
+            where: { featured: { equals: true } },
+            limit: 3,
+            sort: '-createdAt',
+          }),
+          payload.find({
+            collection: 'blog-posts',
+            where: { featured: { equals: true } },
+            limit: 3,
+            sort: '-publishedDate',
+          }),
+          payload.find({
+            collection: 'trusted-partners',
+            where: { featured: { equals: true } },
+            sort: 'order',
+          }),
+        ]);
+
       // Fetch all needed data in parallel
       const [
         homePage,
@@ -19,42 +57,19 @@ export const homeBundleEndpoint: { path: string; method: 'get'; handler: (req: P
         featuredTestimonials,
         featuredBlogPosts,
         trustedPartners,
-      ] = await Promise.all([
-        payload.findGlobal({ slug: 'home-page' }),
-        payload.findGlobal({ slug: 'about-page' }),
-        payload.findGlobal({ slug: 'contact-page' }),
-        payload.findGlobal({ slug: 'site-settings' }),
-        payload.findGlobal({ slug: 'footer' }),
-        payload.find({
-          collection: 'services',
-          where: { featured: { equals: true } },
-          limit: 6,
-          sort: '-createdAt',
-        }),
-        payload.find({
-          collection: 'projects',
-          where: { featured: { equals: true } },
-          limit: 6,
-          sort: '-createdAt',
-        }),
-        payload.find({
-          collection: 'testimonials',
-          where: { featured: { equals: true } },
-          limit: 3,
-          sort: '-createdAt',
-        }),
-        payload.find({
-          collection: 'blog-posts',
-          where: { featured: { equals: true } },
-          limit: 3,
-          sort: '-publishedDate',
-        }),
-        payload.find({
-          collection: 'trusted-partners',
-          where: { featured: { equals: true } },
-          sort: 'order',
-        }),
-      ]);
+      ] = await fetchBundleData().catch(async (err) => {
+        const message = err instanceof Error ? err.message : String(err);
+        const shouldRetry =
+          message.includes('Connection terminated unexpectedly') ||
+          message.includes('ECONNRESET') ||
+          message.includes('terminating connection') ||
+          message.includes('Connection terminated');
+
+        if (!shouldRetry) throw err;
+
+        await new Promise((resolve) => setTimeout(resolve, 250));
+        return fetchBundleData();
+      });
 
       // Return bundle matching frontend expectations
       const bundle = {

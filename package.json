@@ -11,20 +11,20 @@
     "typecheck": "tsc --noEmit",
     "generate:types": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:types",
     "generate:importmap": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:importmap",
-    "seed": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts node --loader ts-node/esm src/seed/index.ts"
+    "seed": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts tsx src/seed/index.ts"
   },
   "dependencies": {
-    "@payloadcms/next": "^3.0.0",
     "@payloadcms/db-postgres": "^3.0.0",
+    "@payloadcms/next": "^3.0.0",
     "@payloadcms/richtext-lexical": "^3.0.0",
     "@payloadcms/storage-s3": "3.83.0",
     "cli-color": "^2.0.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "next": "16.2.4",
     "payload": "^3.0.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "dotenv": "^16.3.1",
-    "cors": "^2.8.5"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
@@ -33,6 +33,7 @@
     "@types/react-dom": "^19.0.0",
     "cross-env": "^7.0.3",
     "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.3.3"
   },
   "engines": {

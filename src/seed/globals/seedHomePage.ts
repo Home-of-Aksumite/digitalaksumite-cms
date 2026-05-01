@@ -4,7 +4,7 @@ export async function seedHomePage(payload: Payload) {
   await payload.updateGlobal({
     slug: 'home-page',
     data: {
-      heroTitle: 'We Build Systems That Last',
+      heroTitle: 'We Build | Systems | That Last',
       heroSubtitle: 'We build systems that define, protect and guide our society.',
       heroPrimaryButtonText: 'Contact Us',
       heroPrimaryButtonUrl: '/#contact',
